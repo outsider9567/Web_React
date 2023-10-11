@@ -25,6 +25,7 @@ export default function ProductList() {
       color: 'black',
       textAlign: 'left'
     }}>
+      
         
         <List subheader="Product list" aria-label="product list">
         {products.map((product, index) =>
