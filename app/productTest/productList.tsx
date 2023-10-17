@@ -4,14 +4,16 @@ import { useState } from "react";
 import CloseIcon from '@mui/icons-material/Close';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+import React from "react";
+
 
 export default function ProductList() {
   const [products, setProducts] = useState([
     { desc: "iPad", price: 20000 },
     { desc: "iPhone 8", price: 20000 },
     { desc: "iPhone X", price: 30000 }
-  ])
-  const [newProduct, setNewProduct] = useState({ visible: false, desc: "", price: 0 , index:0})
+  ]);
+  const [newProduct, setNewProduct] = useState({ visible: false, desc: "", price: 0, index: 0 });
   const handleClick = function (e: React.ChangeEvent<HTMLInputElement>) {
     setNewProduct({ ...newProduct, [e.target.name]: e.target.value })
   }
@@ -23,11 +25,16 @@ export default function ProductList() {
     setNewProduct({ ...newProduct, visible: false })
     console.log(products);
   }
-  
   function remove(index:number){
     alert("刪除成功!")
     products.splice(index, 1)
     console.log(products)
+  }
+  function updateProduct(index) {
+    products.map(products =>{products.desc = newProduct.desc})
+    products.map(products =>{products.price = newProduct.price})
+    setNewProduct({ ...newProduct, visible: false });
+    console.log(products);
   }
   const hide = () => {
     setNewProduct({ ...newProduct, visible: false})
@@ -41,7 +48,7 @@ export default function ProductList() {
       textAlign: 'left'
     }}>
       {newProduct.visible ?
-        <div>
+        
         <Dialog open={newProduct.visible} onClose={hide} aria-labelledby="新增產品">
           <DialogTitle>新增產品</DialogTitle>
         <DialogContent>
@@ -63,7 +70,7 @@ export default function ProductList() {
           <Button variant="contained" color="primary" onClick={update}>新增</Button>
         </DialogActions>
         </Dialog>
-        </div>
+       
         :
         <div>
           <button onClick={show}>新增產品</button>
@@ -72,7 +79,7 @@ export default function ProductList() {
               <ListItem divider key={product.desc}>
                 <ListItemText primary={product.desc} secondary={product.price}>
                   </ListItemText>
-                  <IconButton edge="end" aria-label="edit"  onClick={() => remove(index)}>
+                  <IconButton edge="end" aria-label="edit"  onClick={() => updateProduct(index)}>
                     <EditIcon/>
                   </IconButton> 
                   <IconButton edge="end" aria-label="delete"  onClick={() => remove(index)}>
