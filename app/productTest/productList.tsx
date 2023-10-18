@@ -5,14 +5,17 @@ import CloseIcon from '@mui/icons-material/Close';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import React from "react";
+import useProducts from "./backend";
 
 
 export default function ProductList() {
-  const [products, setProducts] = useState([
-    { desc: "iPad", price: 20000 },
-    { desc: "iPhone 8", price: 20000 },
-    { desc: "iPhone X", price: 30000 }
-  ]);
+    // const [products, setProducts] = useState([
+  //   { desc: "iPad", price: 20000 },
+  //   { desc: "iPhone 8", price: 20000 },
+  //   { desc: "iPhone X", price: 30000 }
+  // ]);
+  const [products, setProducts] = useProducts();
+
   const [newProduct, setNewProduct] = useState({ visible: false, desc: "", price: 0, index: 0 });
   const handleClick = function (e: React.ChangeEvent<HTMLInputElement>) {
     setNewProduct({ ...newProduct, [e.target.name]: e.target.value })
@@ -30,7 +33,7 @@ export default function ProductList() {
     products.splice(index, 1)
     console.log(products)
   }
-  function updateProduct(index) {
+  function updateProduct(index:any) {
     products.map(products =>{products.desc = newProduct.desc})
     products.map(products =>{products.price = newProduct.price})
     setNewProduct({ ...newProduct, visible: false });
